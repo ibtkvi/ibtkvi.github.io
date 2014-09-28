@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>angular-repeat-slide demo</title>
+  </head>
+  <body>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet">
+    <script src="js/angular.min.js"></script>
+    <script src="js/touch-emulator.js"></script>
+    <script src="js/prettify.js"></script>    
+    <script src="js/swiperRepeat.min.js"></script>
+
+    <style>
+    .demo-container {
+      position: relative;
+      width: 300px;
+      height: 500px;
+      border: 15px black solid;
+      border-width: 40px 15px 40px 15px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px black;
+      overflow: hidden;
+    }
+    .demo-container-small {
+      position: relative;
+      width: 210px;
+      height: 340px;
+      border: 10px black solid;
+      border-width: 20px 8px 20px 8px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px black;
+      overflow: hidden;
+    }
+    *[swiper-repeat] {
+      text-align: justify;
+      padding: 10px;
+    }
+    *[swiper-repeat] > h1,h2,h3,h4,h5,h6 {
+      text-align: center;
+    }
+    pre {
+      font-size: 12px;
+    }
+    p.lead {
+      margin-top:50px;
+    }
+    </style>
+
+    <script> 
+      TouchEmulator(); 
+    </script>
+
+<div class="container">
+
+
+
+
+<div class="row">
+<p class="lead">Basic usage</p>
+<div class="col-xs-7">
+<p><code>swiper-repeat</code> is similar to Angular's <code>ng-repeat</code> directive.<br>
+  It instantiates a template once per item from a collection, but unlike ng-repeat, it shows each template instance as a swipeable slide.</p>
+<pre class="prettyprint">angular.module(&quot;myApp&quot;, [&quot;swiperRepeat&quot;]);</pre>
+<pre class="prettyprint">.demo-container {
+  overflow: hidden;
+  width: 300px;
+  height: 500px;
+}</pre>
+<pre class="prettyprint">&lt;div class=&quot;demo-container&quot; ng-app=&quot;myApp&quot;&gt;
+  &lt;div swiper-repeat=&quot;item in [1,2,3]&quot;&gt;
+    &lt;h6&gt;Slide {{item}}&lt;/h6&gt;
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem. Ut vitae porta erat, et lobortis dolor. Curabitur vitae rhoncus mauris.
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+<div id="demo1" class="col-xs-5">
+  <div class="demo-container">
+    <div swiper-repeat="item in [1,2,3]">
+      <h6>Slide {{item}}</h6>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem. Ut vitae porta erat, et lobortis dolor. Curabitur vitae rhoncus mauris.
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  angular.module('demo1', ['swiperRepeat']);
+  angular.bootstrap(document.getElementById('demo1'), ['demo1']);
+</script>
+
+
+
+
+
+
+
+<div class="row">
+<p class="lead">In conjunction with ng-include</p>
+<div class="col-xs-7">
+<pre class="prettyprint">&lt;script type=&quot;text/ng-template&quot; id=&quot;page1.html&quot;&gt;
+  &lt;h6&gt;Page 1&lt;/h6&gt;
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem. Ut vitae porta erat, et lobortis dolor.
+&lt;/script&gt;
+
+&lt;script type=&quot;text/ng-template&quot; id=&quot;page2.html&quot;&gt;
+  &lt;h6&gt;Page 2&lt;/h6&gt;
+  Curabitur vitae rhoncus mauris. Curabitur sed lacus sed sem aliquam semper eu at risus. Cras eleifend tortor dolor, quis vestibulum urna rutrum id.
+&lt;/script&gt;
+
+&lt;script type=&quot;text/ng-template&quot; id=&quot;page3.html&quot;&gt;
+  &lt;h6&gt;Page 3&lt;/h6&gt;
+  Fusce tincidunt risus arcu, ut tristique metus bibendum ut. Vivamus porta venenatis orci nec maximus. Integer malesuada ante auctor elit cursus gravida ac vel justo. Sed et porta sem, ut egestas quam.
+&lt;/script&gt;
+
+&lt;div class=&quot;demo-container&quot;&gt;
+  &lt;div swiper-repeat=&quot;url in ['page1.html','page2.html','page3.html']&quot;&gt;
+    &lt;div ng-include=&quot;url&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+<div id="demo2" class="col-xs-5">
+  <div class="demo-container">
+    <div swiper-repeat="url in ['page1.html','page2.html','page3.html']">
+      <div ng-include="url"></div>
+    </div>
+  </div>
+  <script type="text/ng-template" id="page1.html">
+  <h6>Page 1</h6>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem. Ut vitae porta erat, et lobortis dolor.
+  </script>
+  <script type="text/ng-template" id="page2.html">
+  <h6>Page 2</h6>
+  Curabitur vitae rhoncus mauris. Curabitur sed lacus sed sem aliquam semper eu at risus. Cras eleifend tortor dolor, quis vestibulum urna rutrum id.
+  </script>
+  <script type="text/ng-template" id="page3.html">
+  <h6>Page 3</h6>
+  Fusce tincidunt risus arcu, ut tristique metus bibendum ut. Vivamus porta venenatis orci nec maximus. Integer malesuada ante auctor elit cursus gravida ac vel justo. Sed et porta sem, ut egestas quam.
+  </script>
+</div>
+</div>
+<script>
+  angular.module('demo2', ['swiperRepeat']);
+  angular.bootstrap(document.getElementById('demo2'), ['demo2']);
+</script>
+
+
+
+
+
+
+
+
+<div class="row">
+<p class="lead">Programmatic access</p>
+<div class="col-xs-7">
+<p><code>swiper-repeat-selected="expression"</code> set up bi-directional binding 
+  between a item of the currently displayed slide and the scope property.</p>
+<pre class="prettyprint">&lt;div class=&quot;demo-container&quot;&gt;
+  &lt;div&gt;
+    &lt;button ng-click=&quot;selected=selected-1&quot; ng-hide=&quot;selected===1&quot;&gt;&lt;/button&gt;
+    Current slide is {{selected}}
+    &lt;button ng-click=&quot;selected=selected+1&quot; ng-hide=&quot;selected===3&quot;&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div swiper-repeat=&quot;item in [1,2,3]&quot; swiper-repeat-selected=&quot;selected&quot;&gt;
+    &lt;h6&gt;Slide {{item}}&lt;/h6&gt;
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem. Ut vitae porta erat, et lobortis dolor. Curabitur vitae rhoncus mauris.
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+<div id="demo3" class="col-xs-5">
+  <div class="demo-container">
+    <div style="text-align:center;background-color:#3498DB;padding: 3px">
+      <button class="btn btn-sm btn-info fui-arrow-left" ng-click="selected=selected-1" ng-style="selected===1 ? {visibility:'hidden'} : {visibility:'visible'}"></button>
+      Current slide is {{selected}}
+      <button class="btn btn-sm btn-info fui-arrow-right" ng-click="selected=selected+1" ng-style="selected===3 ? {visibility:'hidden'} : {visibility:'visible'}"></button>
+    </div>
+    <div swiper-repeat="item in [1,2,3]" swiper-repeat-selected="selected">
+      <h6>Slide {{item}}</h6>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem. Ut vitae porta erat, et lobortis dolor. Curabitur vitae rhoncus mauris.
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  angular.module('demo3', ['swiperRepeat']);
+  angular.bootstrap(document.getElementById('demo3'), ['demo3']);
+</script>
+
+
+
+
+
+
+
+
+<div class="row">
+<p class="lead">Live collection update</p>
+<div class="col-xs-7">
+<pre class="prettyprint">&lt;div class=&quot;demo-container&quot; ng-controller=&quot;OuterCtrl&quot;&gt;
+  &lt;div swiper-repeat=&quot;item in items&quot; swiper-repeat-selected=&quot;selected&quot;&gt;
+    &lt;h6&gt;Slide {{item}}&lt;/h6&gt;
+    Try to reach a last slide
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+<pre class="prettyprint">angular.module('myApp')
+  .controller('OuterCtrl', function($scope) {
+    $scope.items = [0, 1, 2];
+    $scope.selected = 1;
+    $scope.$watch('selected', function(item) {
+      $scope.items = [item - 1, item, item + 1];
+    });
+  });</pre>
+</div>
+<div id="demo4" class="col-xs-5">
+  <div class="demo-container" ng-controller="OuterCtrl">
+    <div swiper-repeat="item in items" swiper-repeat-selected="selected">
+      <h6>Slide {{item}}</h6>
+      <p style="text-align:center">Try to reach a last slide</p>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  angular.module('demo4', ['swiperRepeat'])
+  .controller('OuterCtrl', function($scope) {
+    $scope.items = [0, 1, 2];
+    $scope.selected = 1;
+    $scope.$watch('selected', function(item) {
+      $scope.items = [item - 1, item, item + 1];
+    });
+  });
+  angular.bootstrap(document.getElementById('demo4'), ['demo4']);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<p class="lead">Retranslator</p>
+<div class="col-xs-7">
+<p>You can define retranslator function, which will be called on every move of the slider.
+  In this example, we are using retranslator function to change position of the background image and the white slider under title.</p>
+<pre class="prettyprint">&lt;div class=&quot;demo-container&quot; ng-controller=&quot;OuterCtrl&quot;&gt;
+
+    &lt;img translator=&quot;backgroundTranslator&quot; src=&quot;images/bg.jpg&quot; /&gt;
+
+    &lt;div ng-click=&quot;selected=1&quot;&gt;Slide 1&lt;/div&gt;
+    &lt;div ng-click=&quot;selected=2&quot;&gt;Slide 2&lt;/div&gt;
+    &lt;div ng-click=&quot;selected=3&quot;&gt;Slide 3&lt;/div&gt;
+    &lt;div translator=&quot;sliderTranslator&quot;&gt;&lt;/div&gt;
+
+    &lt;div swiper-repeat=&quot;item in [1,2,3]&quot; swiper-repeat-selected=&quot;selected&quot; 
+         swiper-repeat-options=&quot;{retranslator: retranslatorFn}&quot;&gt;
+      &lt;div&gt;
+        &lt;h6&gt;Slide {{item}}&lt;/h6&gt;
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem.
+      &lt;/div&gt;
+    &lt;/div&gt; 
+
+&lt;/div&gt;</pre>
+<pre class="prettyprint">angular.module('myApp', ['swiperRepeat'])
+  .controller('OuterCtrl', function($scope) {
+    $scope.retranslatorFn = function(index, dx, duration) {
+      $scope.backgroundTranslator((-index -dx) * 10 + '%', duration + 'ms');
+      $scope.sliderTranslator((index + dx) * 100 + '%', duration + 'ms');
+    };
+  })
+  .directive('translator', function() {
+    return {
+      restrict: 'A',
+      scope: { translatorFn: '=translator' },
+      link: function($scope, $element, $attrs) {
+        $scope.translatorFn = function(dx, duration) {
+          $element.css('transform', 'translate3d(' + dx + '' + ', 0, 0)')
+                  .css('transitionDuration', duration);
+        }
+      }
+    }
+  });</pre>
+</div>
+<style>
+  .demo5-title {
+    width:33.333%;
+    text-align:center;
+    float:left;
+    line-height: 2.4em;
+    color: white;
+  }
+  .demo5-slider {
+    height:3px;
+    width:33.333%;
+    background-color:#fff;
+    clear:both
+  }   
+  .demo5-slide {
+    margin:10px;
+    background-color:white;
+    opacity:0.9;
+    padding:10px;
+    border-radius:5px;
+    font-size: 16px;
+  }
+  .demo5-bg {
+    position:absolute;
+    z-index:-1;
+  }
+</style>
+<div id="demo5" class="col-xs-5">
+  <div class="demo-container" ng-controller="OuterCtrl">
+
+      <img class="demo5-bg" translator="backgroundTranslator" src="images/bg.jpg" />
+
+      <div class="demo5-title" ng-click="selected=1">Slide 1</div>
+      <div class="demo5-title" ng-click="selected=2">Slide 2</div>
+      <div class="demo5-title" ng-click="selected=3">Slide 3</div>
+      <div class="demo5-slider" translator="sliderTranslator"></div>
+
+      <div swiper-repeat="item in [1,2,3]" swiper-repeat-selected="selected" 
+           swiper-repeat-options="{retranslator: retranslatorFn, prerender:true}">
+        <div class="demo5-slide">
+          <h6>Slide {{item}}</h6>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fermentum vulputate ipsum sagittis varius. Nam id arcu nec augue accumsan vehicula vitae sit amet lorem.
+        </div>
+      </div> 
+
+  </div>
+</div>
+</div>
+<script>
+  angular.module('demo5', ['swiperRepeat'])
+  .controller('OuterCtrl', function($scope) {
+    $scope.retranslatorFn = function(index, dx, duration) {
+      var absDx = index + dx;
+      absDx = absDx < 0 ? 0
+            : absDx > 2 ? 2
+            : absDx;
+      $scope.backgroundTranslator((-absDx) * 10 + '%', duration + 'ms');
+      $scope.sliderTranslator((index + dx) * 100 + '%', duration + 'ms');
+    };
+  })
+  .directive('translator', function() {
+
+    var TRANSITION_PROP;
+
+    if (window.ontransitionend === undefined && window.onwebkittransitionend !== undefined) {
+      TRANSITION_PROP = 'WebkitTransition';
+    } else {
+      TRANSITION_PROP = 'transition';
+    }
+    
+    function getFirstAvailable(keys) {
+      for (var i = 0; i < keys.length; i++) {
+        if(document.documentElement.style[keys[i]] !== undefined) {
+          return keys[i];
+        }
+      }
+    }
+
+    var TRANSFORM_PROP = getFirstAvailable(['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform']);
+
+    return {
+      restrict: 'A',
+      scope: { translatorFn: '=translator' },
+      link: function($scope, $element, $attrs) {
+        $scope.translatorFn = function(dx, duration) {
+          $element.css(TRANSFORM_PROP, 'translate3d(' + dx + '' + ', 0, 0)')
+                  .css(TRANSITION_PROP + 'Duration', duration);
+        }
+      }
+    }
+  });
+  angular.bootstrap(document.getElementById('demo5'), ['demo5']);
+</script>
+
+
+
+
+
+
+
+
+
+<div class="row">
+<p class="lead">Slide instantiation</p>
+<div class="col-xs-7">
+  By default, only three slides (previous, current, next) will be instantiated.
+  With <code>prerender: true</code> option, it instantiate all slides for entire collection.
+  <br>
+  In this example, we are intentionally set <code>overflow: visible</code> to container element, so you can see all instantiated slides.
+
+<pre class="prettyprint">&lt;div style=&quot;overflow:visible;&quot;&gt;
+  &lt;div swiper-repeat=&quot;item in [1,2,3,4,5]&quot; ng-controller=&quot;SlideCtrl&quot;&gt;
+    &lt;h6 ng-show=&quot;!loaded&quot;&gt;loading...&lt;/h6&gt;
+    &lt;h6 ng-show=&quot;loaded&quot;&gt;Slide {{item}}&lt;/h6&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;overflow:visible;&quot;&gt;
+  &lt;div swiper-repeat=&quot;item in [1,2,3,4,5]&quot; ng-controller=&quot;SlideCtrl&quot; 
+       swiper-repeat-options=&quot;{prerender:true}&quot;&gt;
+    &lt;h6 ng-show=&quot;!loaded&quot;&gt;loading...&lt;/h6&gt;
+    &lt;h6 ng-show=&quot;loaded&quot;&gt;Slide {{item}}&lt;/h6&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+<pre class="prettyprint">angular.module('myApp')
+  .controller('SlideCtrl', function($scope, $timeout) {
+    $scope.loaded = false;
+    // fake data loading
+    $timeout(function() {
+      $scope.loaded = true;
+    }, 500);
+  });</pre>
+</div>
+<div class="col-xs-5" id="demo6">
+  <div class="demo-container-small" style="overflow:visible;">
+    <div swiper-repeat="item in [1,2,3,4,5]" ng-controller="SlideCtrl" style="font-size:14px;border:1px gray dashed">
+      <h6 ng-show="!loaded">loading...</h6>
+      <h6 ng-show="loaded">Slide {{item}}</h6>
+    </div>
+  </div>
+  <p>&nbsp;</p>
+  <div class="demo-container-small" style="overflow:visible;">
+    <div swiper-repeat="item in [1,2,3,4,5]" swiper-repeat-options="{prerender:true}" ng-controller="SlideCtrl" style="font-size:14px;border:1px gray dashed">
+      <h6 ng-show="!loaded">loading...</h6>
+      <h6 ng-show="loaded">Slide {{item}}</h6>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  angular.module('demo6', ['swiperRepeat'])
+  .controller('SlideCtrl', function($scope, $timeout) {
+    $scope.loaded = false;
+    // fake data loading
+    $timeout(function() {
+      $scope.loaded = true;
+    }, 500);
+  });
+  angular.bootstrap(document.getElementById('demo6'), ['demo6']);
+</script>
+
+
+
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+  prettyPrint();
+</script>
+
+
+  </body>
+</html>
